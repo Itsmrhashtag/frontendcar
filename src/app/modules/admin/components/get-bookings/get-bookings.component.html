@@ -1,0 +1,43 @@
+<div class="overflow-x-auto">
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Days</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings">
+        <td> {{booking.username}} </td>
+        <td> {{booking.email}} </td>
+          <td>{{booking.fromDate | date: 'MMM d, y'}}</td>
+          <td>{{booking.toDate | date: 'MMM d, y'}}</td>
+          <td> {{booking.days}} </td>
+          <td> {{booking.price}} </td>
+          <td>
+            <strong [ngClass]="{
+              'status-approved': booking.bookingStatus === 'APPROVED',
+              'status-rejected': booking.bookingStatus === 'REJECTED',
+              'status-pending': booking.bookingStatus === 'PENDING'
+          }">
+                {{booking.bookingStatus}}
+            </strong>
+          </td>
+          <td>
+            <span class="space-x-2 space-y-2" *ngIf="booking.bookingStatus == 'PENDING'">
+              <button class="btn btn-success" (click)="changeBookingStatus(booking.id, 'APPROVED')">Approve</button>
+              <button class="btn btn-error" (click)="changeBookingStatus(booking.id, 'REJECTED')">Reject</button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
