@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StorageService } from '../../../authentication/services/storage/storage.service';
 
-const BASE_URL = 'http://localhost:8081/api/v1/customer/';
+const BASE_URL = 'http://localhost:8083/api/v1/';
 
 @Injectable({
   providedIn: 'root'
@@ -18,44 +18,43 @@ export class CustomerService {
 
   // function to get all cars
   getAllCars(): Observable<any> {
-    return this.http.get(BASE_URL + 'cars', {
+    return this.http.get(BASE_URL + 'customer/cars', {
       headers: this.createAuthorizationHeader(),
     });
   }
 
   // function to get car by id
   getCarById(carId: number): Observable<any> {
-    return this.http.get(BASE_URL + 'car/' + carId, {
+    return this.http.get(BASE_URL + 'customer/car/' + carId, {
       headers: this.createAuthorizationHeader(),
     });
   }
 
     // function to get car by id
     carBooking(book: any): Observable<any> {
-      return this.http.post('http://localhost:8082/api/v1/bookings/car/book' , book, {
+      return this.http.post('/bookings/car/book' , book, {
         headers: this.createAuthorizationHeader(),
       });
     }
 
       // function to get car by id
       getBookingByUserId(): Observable<any> {
-    return this.http.get('http://localhost:8082/api/v1/bookings/car/' + StorageService.getUserId(), {
+    return this.http.get('/bookings/car/' + StorageService.getUserId(), {
       headers: this.createAuthorizationHeader(),
     });
   }
 
       // function to search car
       search(SearchCarDto: any): Observable<any> {
-        return this.http.post(BASE_URL + 'car/search', SearchCarDto, {
+        return this.http.post(BASE_URL + 'customer/car/search', SearchCarDto, {
           headers: this.createAuthorizationHeader(),
         });
       }
 
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();
-    return authHeaders.set(
+    return authHeaders.delete(
       'Authorization',
-      'Bearer ' + StorageService.getToken()
     );
   }
 

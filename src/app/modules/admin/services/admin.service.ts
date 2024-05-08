@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StorageService } from '../../../authentication/services/storage/storage.service';
 
-const BASE_URL = 'http://localhost:8081/api/v1/admin/';
+const BASE_URL = 'http://localhost:8083/api/v1/admin/';
 
 @Injectable({
   providedIn: 'root',
@@ -69,9 +69,8 @@ export class AdminService {
 
   createAuthorizationHeader(): HttpHeaders {
     let authHeaders: HttpHeaders = new HttpHeaders();
-    return authHeaders.set(
+    return authHeaders.delete(
       'Authorization',
-      'Bearer ' + StorageService.getToken()
     );
   }
 }
